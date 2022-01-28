@@ -1,16 +1,15 @@
-name: GitHub Action flow to Docker hub 
+name: GitHub Action flow to Docker hub
 
 on:
   push:
-    branches: [main]
+    branches: [master]
 
 jobs:
   build-push-images:
-    name: Budowa i publikacja obrazw na repozytorium
+    name: Zadanie 2.1
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -19,19 +18,17 @@ jobs:
         uses: docker/setup-buildx-action@v1
 
       - name: Login to DockerHub
-        uses: docker/login-action@v1 
+        uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-
 
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
         with:
           context: ./
-          file: ./dockerfile.v1
+          file: ./Dockerfile
           push: true
           tags: |
-            spg51/lab:ghfront1
-          
+            mecenaschmal/zadanie2:punkt1
